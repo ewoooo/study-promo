@@ -1,0 +1,191 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+  position: relative;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100lvh;
+}
+
+*, :before, :after {
+  box-sizing: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+[class*="section"] {
+  padding-top: 160px;
+}
+
+.global-nav {
+  isolation: isolate;
+  pointer-events: none;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  position: fixed;
+  inset: 0;
+}
+
+.navigation {
+  margin-left: 12px;
+  transition: transform .6s ease-in-out;
+  position: relative;
+}
+
+.navigation > * {
+  transform: translateX(-120px);
+}
+
+.navigation .current {
+  transform: translateX(0);
+}
+
+.navigation .nav-indicator-wrapper {
+  pointer-events: auto;
+  justify-content: center;
+  align-items: center;
+  transition: inherit;
+  display: flex;
+  position: absolute;
+  inset: 0;
+}
+
+.navigation .nav-item-container {
+  background-color: #f5f5ff1a;
+  border-radius: 24px;
+  padding: 8px;
+  transition: inherit;
+}
+
+.nav-items {
+  flex-flow: column;
+  gap: 12px;
+  display: flex;
+}
+
+.nav-items .nav-item {
+  pointer-events: auto;
+  align-items: center;
+  gap: 12px;
+  display: flex;
+}
+
+.nav-items .nav-item .nav-item-button {
+  backdrop-filter: blur(7px);
+  color: #fff;
+  background-color: #0000;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  transition: background-color .2s, transform .3s;
+  display: flex;
+  position: relative;
+  transform: scale(1);
+}
+
+.nav-items .nav-item .nav-item-button:after {
+  content: attr(data-label);
+  display: inline;
+}
+
+.nav-items .nav-item .nav-item-button:hover {
+  background-color: #f5f5ff33;
+  transform: scale(1.1);
+}
+
+.nav-items .nav-item .nav-item-button:hover + .nav-item-copy {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-items .nav-item .nav-item-copy {
+  opacity: 0;
+  pointer-events: none;
+  color: #fff;
+  width: max-content;
+  margin-left: 66px;
+  transition: opacity .2s, transform .2s;
+  position: absolute;
+  transform: translateY(5px);
+}
+
+.nav-indicator {
+  pointer-events: auto;
+  cursor: pointer;
+  background-color: #f5f5ff33;
+  border-radius: 4px;
+  width: 8px;
+  height: 80px;
+}
+
+.section-hero {
+  background-color: #000;
+  min-height: 100lvh;
+}
+/*# sourceMappingURL=index.623a8aca.css.map */

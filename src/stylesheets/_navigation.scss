@@ -1,0 +1,120 @@
+$navigation-gap: 12px;
+$navigation-item-gap: 12px;
+$navigation-anchor-size: 50px;
+$navigation-anchor-radius: 20px;
+$navigation-transition-delta: 200ms;
+$navigation-copy-transition: opacity $navigation-transition-delta ease, transform $navigation-transition-delta ease;
+$navigation-indicator-transition: transform 600ms ease-in-out;
+
+$navigation-container-background: rgba(245, 245, 255, 0.1);
+$navigation-anchor-background: transparent;
+$navigation-anchor-background-active: rgba(245, 245, 255, 0.2);
+
+// Indicator
+$navigation-indicator-height: 80px;
+$navigation-indicator-width: 8px;
+
+.global-nav {
+	position: fixed;
+	isolation: isolate;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	pointer-events: none;
+	inset: 0;
+}
+
+.navigation {
+	position: relative;
+	margin-left: $navigation-gap;
+	transition: $navigation-indicator-transition;
+
+	& > * {
+		transform: translateX(-120px);
+	}
+
+	& .current {
+		transform: translateX(0px);
+	}
+
+	.nav-indicator-wrapper {
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		inset: 0;
+		pointer-events: auto;
+		transition: inherit;
+	}
+
+	.nav-item-container {
+		transition: inherit;
+		padding: 8px;
+		border-radius: 24px;
+		background-color: $navigation-container-background;
+	}
+}
+
+.nav-items {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: $navigation-gap;
+
+	.nav-item {
+		pointer-events: auto;
+		display: flex;
+		gap: $navigation-item-gap;
+		align-items: center;
+
+		.nav-item-button {
+			display: flex;
+			position: relative;
+			background-color: $navigation-anchor-background;
+			backdrop-filter: blur(7px);
+			width: $navigation-anchor-size;
+			height: $navigation-anchor-size;
+			border-radius: $navigation-anchor-radius;
+			align-items: center;
+			justify-content: center;
+			color: white;
+
+			transform: scale(1);
+			transition: background-color 200ms ease, transform 300ms ease;
+
+			&:after {
+				content: attr(data-label);
+				display: inline;
+			}
+
+			&:hover {
+				background-color: $navigation-anchor-background-active;
+				transform: scale(1.1);
+
+				+ .nav-item-copy {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+		}
+
+		.nav-item-copy {
+			position: absolute;
+			width: max-content;
+			margin-left: $navigation-item-gap + $navigation-anchor-size + 4px;
+			opacity: 0;
+			transform: translateY(5px);
+			transition: $navigation-copy-transition;
+			pointer-events: none;
+			color: white;
+		}
+	}
+}
+
+.nav-indicator {
+	pointer-events: auto;
+	cursor: pointer;
+	height: $navigation-indicator-height;
+	width: $navigation-indicator-width;
+	border-radius: calc($navigation-indicator-width / 2);
+	background-color: $navigation-anchor-background-active;
+}

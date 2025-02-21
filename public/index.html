@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="../src/stylesheets/main.scss" />
+		<script type="module" src="../src/scripts/main.js" defer></script>
+		<title>Test</title>
+	</head>
+	<body>
+		<header class="header">
+			<section class="header-hero"></section>
+			<section class="header-global"></section>
+		</header>
+		<section class="global-nav">
+			<nav class="navigation">
+				<div class="nav-item-container" id="global-nav-navigation">
+					<ul class="nav-items">
+						<li class="nav-item">
+							<a href="#a" class="nav-item-button" aria-label="Go to Section A">1</a>
+							<span class="nav-item-copy">Test 1</span>
+						</li>
+						<li class="nav-item">
+							<a href="#b" class="nav-item-button" aria-label="Go to Section B">2</a>
+							<div class="nav-item-copy">Test 2</div>
+						</li>
+						<li class="nav-item">
+							<a href="#c" class="nav-item-button" aria-label="Go to Section C">3</a>
+							<div class="nav-item-copy">Lorem ipsum dolor sit amet consectetur adipisicing.</div>
+						</li>
+						<li class="nav-item">
+							<a href="#d" class="nav-item-button" aria-label="Go to Section D">4</a>
+							<div class="nav-item-copy">Lorem ipsum dolor sit amet consectetur adipisicing.</div>
+						</li>
+					</ul>
+				</div>
+				<div class="nav-indicator-wrapper current" id="global-nav-indicator">
+					<div class="nav-indicator"></div>
+				</div>
+			</nav>
+		</section>
+		<section class="section-hero">123</section>
+		<section class="section-intro">
+			<article class="intro-welcome-message"></article>
+			<article class="intro-list-of-table">
+				<ul class="table-items" role="list">
+					<li class="table-item" role="listitem">
+						<div class="table-item-content">
+							<span class="item-numbering">1</span>
+							<span class="item-copy">The only constant is change.</span>
+						</div>
+						<div class="table-item-button"></div>
+					</li>
+				</ul>
+			</article>
+		</section>
+	</body>
+</html>

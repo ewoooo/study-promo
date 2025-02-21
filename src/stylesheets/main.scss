@@ -1,0 +1,13 @@
+// Basic
+@use "reset";
+@use "lenis";
+@use "component";
+@use "animation";
+
+// Styles
+@use "navigation";
+
+.section-hero {
+	min-height: 100lvh;
+	background-color: black;
+}
