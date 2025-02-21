@@ -2,6 +2,7 @@ export class Navigation {
 	constructor() {
 		this.navigation = undefined;
 		this.indicator = undefined;
+		this.isActive = false;
 	}
 
 	set(element) {
@@ -22,24 +23,12 @@ export class Navigation {
 
 	addEventListeners() {
 		if (!this.navigation) return console.error("Navigation is not loaded.");
-		if (this.navigation && this.indicator) {
-			const entries = [this.navigation, this.indicator];
-			for (let entry of entries) {
-				entry.addEventListener("pointerdown", this.event.bind(this), this);
-			}
-		}
+		if (this.indicator) this.indicator.addEventListener("pointerdown", this.indicatorEvent.bind(this));
+		this.navigation.addEventListener("pointerdown", this.navigationEvent.bind(this));
 	}
 
-	event(e) {
-		const className = "current";
-		// const isCurrent = e.currentTarget.classList.contains(className);
-
-		if (e.currentTarget === this.indicator) {
-			this.navigation.classList.add(className);
-			this.indicator.classList.remove(className);
-		} else {
-			this.navigation.classList.remove(className);
-			this.indicator.classList.add(className);
-		}
+	indicatorEvent(e) {
+		this.indicator.classList.add("");
+		this.navigation.classList.add("");
 	}
 }

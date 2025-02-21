@@ -10,9 +10,4 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 });
 
-window.addEventListener("DOMContentLoaded", () => {
-	const nav = new Navigation();
-	nav.set("#global-nav-navigation");
-	nav.indicate("#global-nav-indicator");
-	nav.addEventListeners();
-});
+window.addEventListener("DOMContentLoaded", () => {});

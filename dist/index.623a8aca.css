@@ -60,6 +60,10 @@ a {
   text-decoration: none;
 }
 
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 html.lenis, html.lenis body {
   height: auto;
 }
@@ -93,6 +97,7 @@ html.lenis, html.lenis body {
 .navigation {
   margin-left: 12px;
   transition: transform .6s ease-in-out;
+  display: flex;
   position: relative;
 }
 
@@ -108,9 +113,9 @@ html.lenis, html.lenis body {
   pointer-events: auto;
   justify-content: center;
   align-items: center;
+  padding-left: 16px;
   transition: inherit;
   display: flex;
-  position: absolute;
   inset: 0;
 }
 
