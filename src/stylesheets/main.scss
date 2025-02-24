@@ -6,9 +6,6 @@
 @use "animation";
 
 // Styles
+@use "hero-section";
 @use "navigation";
-
-.section-hero {
-	min-height: 100lvh;
-	background-color: black;
-}
+@use "header";

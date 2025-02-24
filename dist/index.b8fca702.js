@@ -609,9 +609,87 @@ document.addEventListener("DOMContentLoaded", ()=>{
         console.log(e);
     });
 });
-window.addEventListener("DOMContentLoaded", ()=>{});
+window.addEventListener("DOMContentLoaded", ()=>{
+    const nav = new (0, _navigation.Navigation)();
+    nav.navigator(".nav-item-container");
+    nav.indicator(".nav-indicator-wrapper");
+    nav.addEventListeners();
+    nav.update();
+});
+window.addEventListener("DOMContentLoaded", ()=>{
+    const cursor = document.querySelector(".hero-button-wrapper");
+    const button = document.querySelector(".hero-control-button");
+    const panel = document.querySelector(".section-hero");
+    const play = document.querySelector(".hero-control-play");
+    const pause = document.querySelector(".hero-control-pause");
+    let isHover = false;
+    let isPlaying = false;
+    let preX = 0;
+    let preY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    // 애니메이션 프레임 ID 저장용
+    let animationFrameId = null;
+    const cursorAnimation = ()=>{
+        if (!isHover) {
+            // 더 이상 애니메이션을 진행하지 않음
+            animationFrameId = null;
+            return;
+        }
+        const d = 0.08; // 보간 계수 (필요에 따라 조정)
+        const x = lerp(preX, targetX, d);
+        const y = lerp(preY, targetY, d);
+        cursor.style.setProperty("--tx", `${x}px`);
+        cursor.style.setProperty("--ty", `${y}px`);
+        preX = x;
+        preY = y;
+        animationFrameId = requestAnimationFrame(cursorAnimation);
+    };
+    function controlVideo(e) {
+        if (isPlaying) {
+            console.log("Media paused...");
+            pause.classList.add("is-active");
+            play.classList.remove("is-active");
+            isPlaying = false;
+        } else {
+            console.log("Media is playing...");
+            pause.classList.remove("is-active");
+            play.classList.add("is-active");
+            isPlaying = true;
+        }
+    }
+    function cursorIsHover(e) {
+        isHover = true;
+        cursor.classList.add("is-hover");
+        // 애니메이션이 실행 중이지 않다면 시작
+        if (!animationFrameId) animationFrameId = requestAnimationFrame(cursorAnimation);
+    }
+    function cursorIsMoving(e) {
+        // 매번 최신 rect를 계산해줍니다.
+        const rect = panel.getBoundingClientRect();
+        targetX = e.clientX - rect.x;
+        targetY = e.clientY - rect.y;
+    }
+    function cursorLeft() {
+        isHover = false;
+        cursor.classList.remove("is-hover");
+        // 애니메이션 루프가 중지되도록 함
+        if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+        }
+    }
+    panel.addEventListener("mouseover", cursorIsHover);
+    panel.addEventListener("mousemove", cursorIsMoving);
+    panel.addEventListener("pointerleave", cursorLeft);
+    button.addEventListener("pointerdown", controlVideo);
+});
+function lerp(a, b, t) {
+    const result = a + t * (b - a);
+    return Number(result.toFixed(3));
+}
 
-},{"lenis":"JS2ak","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./navigation":"jccdd"}],"JS2ak":[function(require,module,exports,__globalThis) {
+},{"lenis":"JS2ak","./navigation":"jccdd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"JS2ak":[function(require,module,exports,__globalThis) {
 // package.json
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -1425,32 +1503,57 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Navigation", ()=>Navigation);
 class Navigation {
     constructor(){
-        this.navigation = undefined;
-        this.indicator = undefined;
-        this.isActive = false;
+        this._navigator = undefined;
+        this._indicator = undefined;
+        this._parent;
+        this.isHovering = false;
     }
-    set(element) {
+    navigator(element) {
         try {
-            return this.navigation = document.querySelector(element);
+            return this._navigator = document.querySelector(element);
         } catch  {
             return console.error("No navigation founded");
         }
     }
-    indicate(element) {
+    indicator(element) {
         try {
-            return this.indicator = document.querySelector(element);
+            return this._indicator = document.querySelector(element);
         } catch  {
             return console.error("No indicator founded");
         }
     }
-    addEventListeners() {
-        if (!this.navigation) return console.error("Navigation is not loaded.");
-        if (this.indicator) this.indicator.addEventListener("pointerdown", this.indicatorEvent.bind(this));
-        this.navigation.addEventListener("pointerdown", this.navigationEvent.bind(this));
+    get parent() {
+        try {
+            return this._parent = this._navigator.closest(".navigation");
+        } catch  {
+            return console.error("No Parent founded");
+        }
     }
-    indicatorEvent(e) {
-        this.indicator.classList.add("");
-        this.navigation.classList.add("");
+    addEventListeners() {
+        this._navigator.addEventListener("pointerdown", this.navigatorClick.bind(this));
+        this._indicator.addEventListener("pointerdown", this.indicatorClick.bind(this));
+        this.parent.addEventListener("mouseleave", this.navigatorLeave.bind(this));
+    }
+    navigatorClick(e) {
+        this.isHovering = false;
+        console.log("Click...");
+        this.update();
+    }
+    indicatorClick(e) {
+        e.preventDefault();
+        console.log("Click...");
+        this.isHovering = true;
+        this.update();
+    }
+    navigatorLeave(e) {
+        e.preventDefault();
+        console.log("LEAVING...");
+        this.isHovering = false;
+        this.update();
+    }
+    update() {
+        if (this.isHovering) this.parent.classList.add("is-hovering");
+        else this.parent.classList.remove("is-hovering");
     }
 }
 

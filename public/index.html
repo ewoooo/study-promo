@@ -9,37 +9,69 @@
 	</head>
 	<body>
 		<header class="header">
-			<section class="header-hero"></section>
+			<section class="header-hero is-active">
+				<div class="header-hero-headline">
+					<h1 class="typography-header-hero">Hello World!</h1>
+				</div>
+			</section>
 			<section class="header-global"></section>
 		</header>
+		<section class="global-media-controller">
+			<div class="media-controller">
+				<div class="controller-artwork"></div>
+				<div class="controller-info"></div>
+				<div class="controller-panel"></div>
+			</div>
+		</section>
 		<section class="global-nav">
-			<nav class="navigation">
-				<div class="nav-item-container current" id="global-nav-navigation">
+			<nav class="navigation typography-nav">
+				<div class="nav-item-container">
 					<ul class="nav-items">
 						<li class="nav-item">
 							<a href="#a" class="nav-item-button" aria-label="Go to Section A">1</a>
-							<span class="nav-item-copy">Test 1</span>
+							<span class="nav-item-copy">Section A</span>
 						</li>
 						<li class="nav-item">
 							<a href="#b" class="nav-item-button" aria-label="Go to Section B">2</a>
-							<div class="nav-item-copy">Test 2</div>
+							<span class="nav-item-copy">Section B</span>
 						</li>
 						<li class="nav-item">
 							<a href="#c" class="nav-item-button" aria-label="Go to Section C">3</a>
-							<div class="nav-item-copy">Lorem ipsum dolor sit amet consectetur adipisicing.</div>
+							<span class="nav-item-copy">Section C</span>
 						</li>
 						<li class="nav-item">
 							<a href="#d" class="nav-item-button" aria-label="Go to Section D">4</a>
-							<div class="nav-item-copy">Lorem ipsum dolor sit amet consectetur adipisicing.</div>
+							<span class="nav-item-copy">Secton D</span>
+						</li>
+						<li class="nav-item">
+							<a href="#d" class="nav-item-button" aria-label="Go to Section F">5</a>
+							<span class="nav-item-copy">Section E</span>
 						</li>
 					</ul>
 				</div>
-				<div class="nav-indicator-wrapper current" id="global-nav-indicator">
+				<div class="nav-indicator-wrapper" id="global-nav-indicator">
 					<div class="nav-indicator"></div>
 				</div>
 			</nav>
 		</section>
-		<section class="section-hero">123</section>
+		<section class="section-hero">
+			<div class="hero-button">
+				<div class="hero-button-wrapper">
+					<button class="hero-control-button">
+						<span class="hero-control-button-symbol hero-control-play is-active">Play</span>
+						<span class="hero-control-button-symbol hero-control-pause">Paused</span>
+					</button>
+				</div>
+			</div>
+			<div class="hero-media-container">
+				<picture class="hero-media-picture picture-block">
+					<img src="../src/images/hero_placeholder.jpg" alt="Placeholder" />
+				</picture>
+			</div>
+			<div class="hero-screener">
+				<div class="screener-bottom"></div>
+			</div>
+		</section>
 		<section class="section-intro">
 			<article class="intro-welcome-message"></article>
 			<article class="intro-list-of-table">

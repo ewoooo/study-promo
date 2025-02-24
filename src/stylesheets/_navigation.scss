@@ -1,121 +1,141 @@
-$navigation-gap: 12px;
-$navigation-item-gap: 12px;
-$navigation-anchor-size: 50px;
-$navigation-anchor-radius: 20px;
-$navigation-transition-delta: 200ms;
-$navigation-copy-transition: opacity $navigation-transition-delta ease, transform $navigation-transition-delta ease;
-$navigation-indicator-transition: transform 600ms ease-in-out;
-
-$navigation-container-background: rgba(245, 245, 255, 0.1);
-$navigation-anchor-background: transparent;
-$navigation-anchor-background-active: rgba(245, 245, 255, 0.2);
-
-// Indicator
-$navigation-indicator-height: 80px;
-$navigation-indicator-width: 8px;
+$button-size: 49px;
+$button-background: rgba(245, 245, 255, 0.2);
+$navigation-background: rgba(245, 245, 255, 0.2);
+$navigation-margin: 16px;
+$indicator-background-active: rgba(245, 245, 255, 0.8);
+$indicator-background: $navigation-background;
+$button-radius: 16px;
+$button-blur: blur(40px);
+$navigation-text-color: white;
+$container-spacing: 8px;
 
 .global-nav {
 	position: fixed;
-	isolation: isolate;
 	display: flex;
 	align-items: center;
-	justify-content: flex-start;
-	pointer-events: none;
 	inset: 0;
-}
+	z-index: 1;
+	pointer-events: none;
 
-.navigation {
-	position: relative;
-	display: flex;
-	margin-left: $navigation-gap;
-	transition: $navigation-indicator-transition;
-
-	& > * {
-		transform: translateX(-120px);
-	}
-
-	& .current {
-		transform: translateX(0px);
-	}
-
-	.nav-indicator-wrapper {
+	.navigation {
+		margin-block: auto;
 		display: flex;
-		justify-content: center;
-		align-items: center;
-		inset: 0;
-		pointer-events: auto;
-		transition: inherit;
-		padding-left: 16px;
-	}
+		isolation: isolate;
+		color: white;
+		pointer-events: all;
 
-	.nav-item-container {
-		transition: inherit;
-		padding: 8px;
-		border-radius: 24px;
-		background-color: $navigation-container-background;
-	}
-}
+		.nav-item-container {
+			padding: $container-spacing;
+			display: grid;
+			grid-template-rows: repeat(5, 1fr);
+			gap: $container-spacing;
+			background-color: $navigation-background;
+			border-radius: calc($button-radius + $container-spacing);
+			backdrop-filter: $button-blur;
+			margin-inline: 16px;
+			margin-block: 16px;
 
-.nav-items {
-	display: flex;
-	flex-flow: column nowrap;
-	gap: $navigation-gap;
+			.nav-items {
+				display: contents;
 
-	.nav-item {
-		pointer-events: auto;
-		display: flex;
-		gap: $navigation-item-gap;
-		align-items: center;
+				.nav-item {
+					display: flex;
+					position: relative;
+					align-items: center;
+					pointer-events: auto;
 
-		.nav-item-button {
-			display: flex;
-			position: relative;
-			background-color: $navigation-anchor-background;
-			backdrop-filter: blur(7px);
-			width: $navigation-anchor-size;
-			height: $navigation-anchor-size;
-			border-radius: $navigation-anchor-radius;
-			align-items: center;
-			justify-content: center;
-			color: white;
-
-			transform: scale(1);
-			transition: background-color 200ms ease, transform 300ms ease;
-
-			&:after {
-				content: attr(data-label);
-				display: inline;
-			}
-
-			&:hover {
-				background-color: $navigation-anchor-background-active;
-				transform: scale(1.1);
-
-				+ .nav-item-copy {
-					opacity: 1;
-					transform: translateY(0);
+					.nav-item-button {
+						width: $button-size;
+						height: $button-size;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						border-radius: $button-radius;
+						cursor: pointer;
+					}
+					.nav-item-copy {
+						position: absolute;
+						pointer-events: none;
+						color: white;
+						width: max-content;
+						left: calc($button-size + $container-spacing * 3);
+					}
 				}
 			}
 		}
 
-		.nav-item-copy {
-			position: absolute;
-			width: max-content;
-			margin-left: $navigation-item-gap + $navigation-anchor-size + 4px;
-			opacity: 0;
-			transform: translateY(5px);
-			transition: $navigation-copy-transition;
-			pointer-events: none;
-			color: white;
+		.nav-indicator-wrapper {
+			min-width: 44px;
+			display: flex;
+			align-items: center;
+			pointer-events: auto;
+			padding-left: 16px;
+
+			.nav-indicator {
+				width: 10px;
+				height: 120px;
+				background-color: $indicator-background;
+				border-radius: 99px;
+				cursor: pointer;
+			}
+
+			// State
+			&:hover .nav-indicator {
+				background-color: $indicator-background-active;
+			}
 		}
 	}
 }
 
-.nav-indicator {
-	pointer-events: auto;
-	cursor: pointer;
-	height: $navigation-indicator-height;
-	width: $navigation-indicator-width;
-	border-radius: calc($navigation-indicator-width / 2);
-	background-color: $navigation-anchor-background-active;
+// State
+
+//animation
+$offset-distance: calc(calc($button-size + $container-spacing * 2 + $navigation-margin) * -1);
+
+.navigation {
+	transform: translateX($offset-distance);
+	transition: transform 500ms cubic-bezier(0.6, 0, 0.3, 1);
+
+	.nav-indicator {
+		opacity: 1;
+		transform: translateX(0px);
+		transition: transform 800ms cubic-bezier(0.77, 0, 0.18, 1), opacity 1000ms ease, background-color 200ms ease;
+	}
+
+	.nav-item-copy {
+		opacity: 0;
+	}
+}
+
+.navigation.is-hovering {
+	transform: translateX(0px);
+
+	.nav-indicator {
+		opacity: 0;
+		transform: translateX(20px);
+	}
+
+	.nav-item-copy {
+		opacity: 0;
+		transform: translateY(20px);
+		filter: blur(20px);
+		transition: opacity 200ms ease, filter 400ms ease, transform 400ms ease;
+	}
+
+	.nav-item-button {
+		transform: scale(1);
+		background-color: transparent;
+		transition: transform 200ms ease;
+
+		&:hover {
+			background-color: $button-background;
+			transform: scale(1.2);
+		}
+
+		&:hover + .nav-item-copy {
+			opacity: 1;
+			transform: translateY(0px);
+			filter: blur(0px);
+		}
+	}
 }
